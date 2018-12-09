@@ -1,15 +1,9 @@
 (ns aoc-2018.day9)
 
-; current
-; current --> 1 --> here --> 2
-; (= 0 (mod current 23)) (not played and added)
-;  7 <-- current (removed and added)
-;  |-> new current
-
-;446 players; last marble is worth 71522 points
-
 (defn start [players]
-  "start is after 9 has been inserted"
+  "start is after 9 has been inserted.
+   This is only done to avoid some checks
+   when inserting 0, 1 and 2."
   {:data {:left [0 8 4]
           :current 9
           :right '(2 5 1 6 3 7)}
@@ -17,9 +11,6 @@
 
 (defn vec->list [v]
   (apply list v))
-
-(defn remove-n-from-back [vec n])
-
 
 (defn handle-mod-23 [value {:keys [left current right] :as data}]
   (if (< (count left) 7)
@@ -71,12 +62,12 @@
   (let [result (play players end)]
     (val (first (sort-by val > (:points result))))))
 
-(assert (= (get-result 9 25) 32))
-(assert (= (get-result 10 1618) 8317))
-(assert (= (get-result 13 7999) 146373))
-(assert (= (get-result 17 1104) 2764))
-(assert (= (get-result 21 6111) 54718))
-(assert (= (get-result 30 5807) 37305))
+; (assert (= (get-result 9 25) 32))
+; (assert (= (get-result 10 1618) 8317))
+; (assert (= (get-result 13 7999) 146373))
+; (assert (= (get-result 17 1104) 2764))
+; (assert (= (get-result 21 6111) 54718))
+; (assert (= (get-result 30 5807) 37305))
 
 (time (get-result 446 71522))
 (time (get-result 446 7152200))
